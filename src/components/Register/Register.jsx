@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { Context } from "../..";
-import { loginRequest } from "../actions/actions";
+import { loginRequest, registerRequest } from "../actions/actions";
 
 const getClasses = makeStyles(() => ({
   form: {
@@ -28,17 +28,16 @@ export const Register = () => {
 
   const { store } = useContext(Context);
 
-  const [login, setLogin] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleClick = () => {
-    store.dispatch(loginRequest(login, password));
-    console.log(store.getState());
+    store.dispatch(registerRequest(username, password));
   };
 
   return (
     <form className={classes.form}>
-      <TextField label={t("login")} value={login} onChange={(e) => setLogin(e.target.value)} />
+      <TextField label={t("login")} value={username} onChange={(e) => setUsername(e.target.value)} />
       <TextField label={t("password")} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <Link to="/list">
         <Button className={classes.formButton} onClick={handleClick} variant="contained" fullWidth>

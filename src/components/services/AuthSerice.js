@@ -1,15 +1,15 @@
 import { $api } from "../../http";
 
 export const AuthService = {
-  login: (login, password) => {
-    return $api.post("/auth/login", { login, password });
+  login: (username, password) => {
+    return $api.post("/auth/login", { username, password });
   },
 
-  register: (login, password) => {
-    return $api.post("/auth/register", { login, password });
+  register: (username, password) => {
+    return $api.post("/auth/register", { username, password });
   },
 
-  logout: () => {
-    return $api.post("/auth/refresh");
+  refresh: () => {
+    return $api.get("/auth/refresh", { withCredentials: true });
   },
 };

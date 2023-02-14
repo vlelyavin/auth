@@ -16,35 +16,43 @@ export const setLoadingStatus = (status) => ({
   payload: status,
 });
 
-export const loginRequest = (email, password) => async (dispatch) => {
+export const loginRequest = (username, password) => async (dispatch) => {
   try {
-    const response = await AuthService.login(email, password);
-    localStorage.setItem("token", response.data.accessToken);
+    const response = await AuthService.login(username, password);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
     dispatch(setAuthenticationStatus(true));
-    dispatch(setProducts(response.data.products));
   } catch (e) {
     console.log(e.response?.data?.message);
   }
 };
 
-export const registerRequest = (email, password) => async (dispatch) => {
+export const registerRequest = (username, password) => async (dispatch) => {
   try {
-    const response = await AuthService.register(email, password);
-    localStorage.setItem("token", response.data.accessToken);
+    const response = await AuthService.register(username, password);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
     dispatch(setAuthenticationStatus(true));
-    dispatch(setProducts(response.data.products));
   } catch (e) {
     console.log(e.response?.data?.message);
   }
 };
 
-export const logout = () => async (dispatch) => {
+export const logout = () => () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("refreshToken");
+};
+
+export const checkAuth = () => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
   try {
-    const response = await AuthService.logout();
-    localStorage.removeItem("token");
-    dispatch(setAuthenticationStatus(false));
-    dispatch(setProducts({}));
+    const response = await AuthService.refresh();
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("token", response.data.refreshToken);
+    dispatch(setAuthenticationStatus(true));
   } catch (e) {
     console.log(e.response?.data?.message);
+  } finally {
+    dispatch(setLoadingStatus(false));
   }
 };
