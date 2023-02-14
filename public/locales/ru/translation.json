@@ -1,0 +1,13 @@
+{
+  "register": "Зарегистрироваться",
+  "cancel": "Отмена",
+  "language": "Язык",
+  "login": "Логин",
+  "loginButton": "Войти",
+  "logout": "Выйти",
+  "page.login": "Авторизация",
+  "page.initial": "Главная",
+  "password": "Пароль",
+  "signIn": "Вход",
+  "signUp": "Регистрация"
+}

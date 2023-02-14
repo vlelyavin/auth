@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import { Authentication } from "./pages/Authentication";
+import { List } from "./pages/List";
+import "./assets/styles/main.css";
+import { makeStyles } from "@mui/styles";
+import { Header } from "./components/Header";
 
-function App() {
+const useGlobalStyles = makeStyles({
+  "@global": {
+    body: {
+      padding: "0",
+      margin: "0",
+      boxSizing: "border-box",
+      width: "100vw",
+      height: "100vh",
+    },
+    a: {
+      textDecoration: "none",
+    },
+  },
+});
+
+export const App = () => {
+  useGlobalStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Authentication />} />
+        <Route path="/list" element={<List />} />
+      </Routes>
+    </>
   );
-}
-
-export default App;
+};

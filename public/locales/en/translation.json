@@ -1,0 +1,13 @@
+{
+  "register": "Register",
+  "cancel": "Cancel",
+  "language": "Language",
+  "login": "Login",
+  "loginButton": "Login",
+  "logout": "Logout",
+  "page.login": "Login",
+  "page.initial": "Main",
+  "password": "Password",
+  "signIn": "Sign in",
+  "signUp": "Sign up"
+}
