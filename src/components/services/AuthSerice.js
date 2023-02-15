@@ -12,4 +12,13 @@ export const AuthService = {
   refresh: () => {
     return $api.get("/auth/refresh", { withCredentials: true });
   },
+
+  getProducts: () => {
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    };
+    return $api.get("/product/list", config);
+  },
 };

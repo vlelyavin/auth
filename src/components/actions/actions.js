@@ -38,6 +38,15 @@ export const registerRequest = (username, password) => async (dispatch) => {
   }
 };
 
+export const getProducts = () => async () => {
+  try {
+    const response = await AuthService.getProducts();
+    console.log(response);
+  } catch (e) {
+    console.log(e.response?.data?.message);
+  }
+};
+
 export const logout = () => () => {
   localStorage.removeItem("token");
   localStorage.removeItem("refreshToken");
