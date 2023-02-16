@@ -1,4 +1,4 @@
-import { $api } from "../../http";
+import { $api } from "../http";
 
 export const AuthService = {
   login: (username, password) => {
@@ -16,7 +16,7 @@ export const AuthService = {
   getProducts: () => {
     const config = {
       headers: {
-        Authorization: localStorage.getItem("token"),
+        Authorization: "Bearer_" + localStorage.getItem("token"),
       },
     };
     return $api.get("/product/list", config);

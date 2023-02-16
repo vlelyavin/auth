@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Login } from "../../components/Login";
 import { Register } from "../../components/Register";
-import { Tab } from "../Tab";
+import { Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 

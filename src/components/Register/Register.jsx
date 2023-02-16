@@ -1,11 +1,11 @@
 import { makeStyles } from "@mui/styles";
-import { TextField } from "../TextField";
-import { Button } from "../Button";
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { Context } from "../..";
-import { loginRequest, registerRequest } from "../actions/actions";
+import { registerRequest } from "../../actions/actions";
 
 const getClasses = makeStyles(() => ({
   form: {

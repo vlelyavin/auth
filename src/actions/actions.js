@@ -1,4 +1,4 @@
-import { SET_PRODUCTS, SET_AUTHENTICATION_STATUS, SET_LOADING_STATUS } from "../../constants/actionTypes";
+import { SET_PRODUCTS, SET_AUTHENTICATION_STATUS, SET_LOADING_STATUS } from "../constants/actionTypes";
 import { AuthService } from "../services/AuthSerice";
 
 export const setProducts = (products) => ({
@@ -20,8 +20,9 @@ export const loginRequest = (username, password) => async (dispatch) => {
   try {
     const response = await AuthService.login(username, password);
     localStorage.setItem("token", response.data.token);
-    localStorage.setItem("refreshToken", response.data.refreshToken);
+    localStorage.setItem("refreshToken", response.data.refreshToken);  
     dispatch(setAuthenticationStatus(true));
+    dispatch(getProducts());
   } catch (e) {
     console.log(e.response?.data?.message);
   }
@@ -38,14 +39,16 @@ export const registerRequest = (username, password) => async (dispatch) => {
   }
 };
 
-export const getProducts = () => async () => {
+export const getProducts = () => async (dispatch) => {
   try {
     const response = await AuthService.getProducts();
     console.log(response);
+      dispatch(setProducts(response.data));
   } catch (e) {
     console.log(e.response?.data?.message);
   }
 };
+
 
 export const logout = () => () => {
   localStorage.removeItem("token");
@@ -57,7 +60,7 @@ export const checkAuth = () => async (dispatch) => {
   try {
     const response = await AuthService.refresh();
     localStorage.setItem("token", response.data.token);
-    localStorage.setItem("token", response.data.refreshToken);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
     dispatch(setAuthenticationStatus(true));
   } catch (e) {
     console.log(e.response?.data?.message);

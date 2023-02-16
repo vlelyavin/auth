@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { TextField } from "../TextField";
-import { Button } from "../Button";
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../..";
-import { loginRequest } from "../actions/actions";
+import { loginRequest } from "../../actions/actions";
+import { useSelector } from "react-redux";
 
 const getClasses = makeStyles(() => ({
   form: {
@@ -30,6 +31,8 @@ export const Login = () => {
 
   const { store } = useContext(Context);
 
+  const authenticationStatus = useSelector((state) => state.isAuthenticated);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,7 +44,7 @@ export const Login = () => {
     <form className={classes.form}>
       <TextField label={t("login")} value={username} onChange={(e) => setUsername(e.target.value)} />
       <TextField label={t("password")} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Link to="/list">
+      <Link to={authenticationStatus ? "/list" : "/"}>
         <Button className={classes.formButton} onClick={handleClick} variant="contained" fullWidth>
           {t("loginButton")}
         </Button>

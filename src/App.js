@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Authentication } from "./pages/Authentication";
-import { List } from "./pages/List";
+import { ProductListPage } from "./pages/ProductListPage";
 import "./assets/styles/main.css";
 import { makeStyles } from "@mui/styles";
 import { Header } from "./components/Header";
@@ -27,7 +27,7 @@ export const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Authentication />} />
-        <Route path="/list" element={<List />} />
+        <Route path="/list" element={<ProductListPage />} />
       </Routes>
     </>
   );
