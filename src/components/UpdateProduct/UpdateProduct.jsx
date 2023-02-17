@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Context } from "../..";
-import { addNewProduct } from "../../actions/actions";
+import { updateProduct } from "../../actions/actions";
 
 const getClasses = makeStyles(() => ({
   form: {
@@ -28,30 +28,30 @@ const getClasses = makeStyles(() => ({
   },
 }));
 
-export const CreateProduct = ({ toggleCreateFormVisibilityStatus }) => {
+export const UpdateProduct = ({ product, toggleUpdateFormVisibilityStatus }) => {
   const classes = getClasses();
-  const { t } = useTranslation();
-  const [title, setTitle] = useState("");
-  const [manufacturer, setManufacturer] = useState("");
-  const [categoryTitle, setCategoryTitle] = useState("");
+  const [title, setTitle] = useState(product.title);
+  const [manufacturer, setManufacturer] = useState(product.manufacturer);
+  const [categoryTitle, setCategoryTitle] = useState(product.category.title);
   const { store } = useContext(Context);
+  const { t } = useTranslation();
 
-  const addProduct = () => {
-    store.dispatch(addNewProduct(title, manufacturer, categoryTitle));
-    toggleCreateFormVisibilityStatus();
+  const handleUpdate = () => {
+    store.dispatch(updateProduct(title, manufacturer, categoryTitle, product.id));
+    toggleUpdateFormVisibilityStatus();
   };
 
   return (
     <form className={classes.form}>
       <div className={classes.formContainer}>
-        <Button onClick={toggleCreateFormVisibilityStatus} variant="contained" fullWidth>
+        <Button onClick={toggleUpdateFormVisibilityStatus} variant="contained" fullWidth>
           {t("back")}
         </Button>
         <TextField label={t("title")} value={title} onChange={(e) => setTitle(e.target.value)} />
         <TextField label={t("manufacturer")} value={manufacturer} onChange={(e) => setManufacturer(e.target.value)} />
         <TextField label={t("category")} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)} />
-        <Button onClick={addProduct} variant="contained" fullWidth>
-          {t("create")}
+        <Button onClick={handleUpdate} variant="contained" fullWidth>
+          {t("update")}
         </Button>
       </div>
     </form>

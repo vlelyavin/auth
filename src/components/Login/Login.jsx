@@ -25,11 +25,8 @@ const getClasses = makeStyles(() => ({
 
 export const Login = () => {
   const classes = getClasses();
-
   const { t } = useTranslation();
-
   const { store } = useContext(Context);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

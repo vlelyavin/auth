@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { useSelector } from "react-redux";
-import { Select } from "../Select/Select";
+import { Select } from "../Select";
 import { useLocation } from "react-router";
 import { useContext, useEffect } from "react";
 import { Context } from "../..";
@@ -22,9 +22,7 @@ const getClasses = makeStyles(() => ({
 
 export const Header = () => {
   const classes = getClasses();
-
   const authenticationStatus = useSelector((state) => state.isAuthenticated);
-  const loadingStatus = useSelector((state) => state.isLoading);
   const location = useLocation();
   const { store } = useContext(Context);
 

@@ -2,7 +2,8 @@ import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import { ProductList } from "../../components/ProductList";
-import { CreateProduct } from "../../components/CreateProduct/CreateProduct";
+import { CreateProduct } from "../../components/CreateProduct";
+import { useTranslation } from "react-i18next";
 
 const getClasses = makeStyles(() => ({
   list: {
@@ -24,19 +25,21 @@ const getClasses = makeStyles(() => ({
 
 export const ProductListPage = () => {
   const classes = getClasses();
+  const { t } = useTranslation();
+  const [createFormVisibilityStatus, showForm] = useState(false);
 
-  const [formVisibilityStatus, showForm] = useState(false);
-
-  const handleClick = () => {
-    showForm(!formVisibilityStatus);
+  const toggleCreateFormVisibilityStatus = () => {
+    showForm(!createFormVisibilityStatus);
   };
 
   return (
     <>
-      {formVisibilityStatus ? <CreateProduct handleClick={handleClick} /> : null}
+      {createFormVisibilityStatus ? (
+        <CreateProduct toggleCreateFormVisibilityStatus={toggleCreateFormVisibilityStatus} />
+      ) : null}
       <div className={classes.list}>
-        <Button variant="contained" onClick={handleClick}>
-          Create
+        <Button variant="contained" onClick={toggleCreateFormVisibilityStatus}>
+          {t("create")}
         </Button>
         <div className={classes.listContainer}>
           <ProductList />

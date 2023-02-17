@@ -12,7 +12,6 @@ const AVAILABLE_PAGES = {
 
 export const AuthenticationForm = () => {
   const [value, setValue] = useState("login");
-
   const { t } = useTranslation();
 
   const handleChange = (event, newValue) => {

@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { AuthenticationForm } from "../../components/AutheticationForm/AutheticationForm";
+import { AuthenticationForm } from "../../components/AutheticationForm";
 
 const getClasses = makeStyles(() => ({
   auth: {

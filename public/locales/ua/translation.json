@@ -1,13 +1,17 @@
 {
   "register": "Зареєструватись",
-  "cancel": "Скасувати",
   "language": "Мова",
   "login": "Логін",
   "loginButton": "Увійти",
   "logout": "Вийти",
-  "page.login": "Login",
-  "page.initial": "Main",
   "password": "Пароль",
-  "signIn": "Вхiд",
-  "signUp": "Вихiд"
+  "signIn": "Вхід",
+  "signUp": "Вихiд",
+  "create": "Додати",
+  "update": "Оновити",
+  "delete": "Видалити",
+  "title": "Назва",
+  "category": "Категорія",
+  "manufacturer": "Виробник",
+  "back": "Назад"
 }

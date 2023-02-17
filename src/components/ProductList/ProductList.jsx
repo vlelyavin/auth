@@ -3,17 +3,15 @@ import { Context } from "../..";
 import { getProducts } from "../../actions/actions";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ProductListItem } from "../ProductListItem/ProductListItem";
+import { ProductListItem } from "../ProductListItem";
 
-export const ProductList = () => {
+export const ProductList = ({ toggleFormVisibilityStatus }) => {
   const { store } = useContext(Context);
   const products = useSelector((state) => state.products);
-  const authenticationStatus = useSelector((state) => state.isAuthenticated);
   const loadingStatus = useSelector((state) => state.isLoading);
 
   useEffect(() => {
     if (!loadingStatus) {
-      console.log("FROM GET PROD" + authenticationStatus);
       store.dispatch(getProducts());
     }
   }, [loadingStatus]);
@@ -21,7 +19,7 @@ export const ProductList = () => {
   return (
     <>
       {products.map((product) => (
-        <ProductListItem product={product} />
+        <ProductListItem product={product} key={product.id} toggleFormVisibilityStatus={toggleFormVisibilityStatus} />
       ))}
     </>
   );

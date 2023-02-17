@@ -95,8 +95,3 @@ export const updateProduct = (title, manufacturer, categoryTitle, id) => async (
     console.log(e.repsonse?.data?.message);
   }
 };
-
-// TODO: навести клеан ап кода
-
-// пофиксить лагаут
-//
