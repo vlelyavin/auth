@@ -14,6 +14,7 @@ const getClasses = makeStyles(() => ({
 
 export const Authentication = () => {
   const classes = getClasses();
+
   return (
     <div className={classes.auth}>
       <AuthenticationForm />

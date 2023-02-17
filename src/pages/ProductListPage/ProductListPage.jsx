@@ -1,12 +1,8 @@
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useContext, useEffect, useState } from "react";
-import { Context } from "../..";
-import { getProducts } from "../../actions/actions";
+import { useState } from "react";
 import { ProductList } from "../../components/ProductList";
 import { CreateProduct } from "../../components/CreateProduct/CreateProduct";
-// import { useSelector } from "react-redux";
-
 
 const getClasses = makeStyles(() => ({
   list: {
@@ -14,14 +10,15 @@ const getClasses = makeStyles(() => ({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    flexDirection: "column",
+    gap: "20px",
   },
   listContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    width: "1000px",
-    background: "gray",
+    width: "600px",
   },
 }));
 

@@ -6,8 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../..";
-import { loginRequest } from "../../actions/actions";
-import { useSelector } from "react-redux";
+import { login } from "../../actions/actions";
 
 const getClasses = makeStyles(() => ({
   form: {
@@ -31,20 +30,18 @@ export const Login = () => {
 
   const { store } = useContext(Context);
 
-  const authenticationStatus = useSelector((state) => state.isAuthenticated);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleClick = () => {
-    store.dispatch(loginRequest(username, password));
+    store.dispatch(login(username, password));
   };
 
   return (
     <form className={classes.form}>
       <TextField label={t("login")} value={username} onChange={(e) => setUsername(e.target.value)} />
       <TextField label={t("password")} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Link to={authenticationStatus ? "/list" : "/"}>
+      <Link to="/list">
         <Button className={classes.formButton} onClick={handleClick} variant="contained" fullWidth>
           {t("loginButton")}
         </Button>

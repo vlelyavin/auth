@@ -1,6 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Context } from "../..";
+import { addNewProduct } from "../../actions/actions";
 
 const getClasses = makeStyles(() => ({
   form: {
@@ -30,9 +32,12 @@ export const CreateProduct = ({ handleClick }) => {
   // const [state, setState] = useState()
   const [title, setTitle] = useState("");
   const [manufacturer, setManufacturer] = useState("");
-  const [category, setCategory] = useState("");
+  const [categoryTitle, setCategoryTitle] = useState("");
+  const { store } = useContext(Context);
 
-  const addProduct = () => {};
+  const addProduct = () => {
+    store.dispatch(addNewProduct(title, manufacturer, categoryTitle));
+  };
 
   return (
     <form className={classes.form}>
@@ -42,8 +47,15 @@ export const CreateProduct = ({ handleClick }) => {
         </Button>
         <TextField label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
         <TextField label="Manufacturer" value={manufacturer} onChange={(e) => setManufacturer(e.target.value)} />
-        <TextField label="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
-        <Button onClick={addProduct} variant="contained" fullWidth>
+        <TextField label="Category" value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)} />
+        <Button
+          onClick={() => {
+            addProduct();
+            handleClick();
+          }}
+          variant="contained"
+          fullWidth
+        >
           Create
         </Button>
       </div>

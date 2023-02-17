@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { Context } from "../..";
-import { registerRequest } from "../../actions/actions";
+import { register } from "../../actions/actions";
 
 const getClasses = makeStyles(() => ({
   form: {
@@ -32,7 +32,7 @@ export const Register = () => {
   const [password, setPassword] = useState("");
 
   const handleClick = () => {
-    store.dispatch(registerRequest(username, password));
+    store.dispatch(register(username, password));
   };
 
   return (

@@ -16,55 +16,87 @@ export const setLoadingStatus = (status) => ({
   payload: status,
 });
 
-export const loginRequest = (username, password) => async (dispatch) => {
+export const getProducts = () => async (dispatch) => {
   try {
-    const response = await AuthService.login(username, password);
-    localStorage.setItem("token", response.data.token);
-    localStorage.setItem("refreshToken", response.data.refreshToken);  
-    dispatch(setAuthenticationStatus(true));
+    const response = await AuthService.getProducts();
+    if (response.status == 403) {
+      refreshTokens();
+      getProducts();
+    } else {
+      dispatch(setProducts(response.data));
+    }
+  } catch (e) {
+    console.log(e.response?.data?.message);
+  }
+};
+
+export const addNewProduct = (title, manufacturer, categoryTitle) => async (dispatch) => {
+  try {
+    const response = await AuthService.addNewProduct(title, manufacturer, categoryTitle);
     dispatch(getProducts());
   } catch (e) {
     console.log(e.response?.data?.message);
   }
 };
 
-export const registerRequest = (username, password) => async (dispatch) => {
-  try {
-    const response = await AuthService.register(username, password);
-    localStorage.setItem("token", response.data.token);
-    localStorage.setItem("refreshToken", response.data.refreshToken);
-    dispatch(setAuthenticationStatus(true));
-  } catch (e) {
-    console.log(e.response?.data?.message);
-  }
-};
-
-export const getProducts = () => async (dispatch) => {
-  try {
-    const response = await AuthService.getProducts();
-    console.log(response);
-      dispatch(setProducts(response.data));
-  } catch (e) {
-    console.log(e.response?.data?.message);
-  }
-};
-
-
-export const logout = () => () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("refreshToken");
-};
-
-export const checkAuth = () => async (dispatch) => {
+export const login = (username, password) => async (dispatch) => {
   dispatch(setLoadingStatus(true));
   try {
-    const response = await AuthService.refresh();
+    const response = await AuthService.login(username, password);
     localStorage.setItem("token", response.data.token);
     localStorage.setItem("refreshToken", response.data.refreshToken);
     dispatch(setAuthenticationStatus(true));
   } catch (e) {
     console.log(e.response?.data?.message);
-  } finally {
-    dispatch(setLoadingStatus(false));
+  }
+  dispatch(setLoadingStatus(false));
+};
+
+export const register = (username, password) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+  try {
+    const response = await AuthService.register(username, password);
+    console.log(response);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
+    dispatch(setAuthenticationStatus(true));
+  } catch (e) {
+    console.log(e.response?.data?.message);
+  }
+  dispatch(setLoadingStatus(false));
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("refreshToken");
+  dispatch(setAuthenticationStatus(false));
+};
+
+export const refreshTokens = () => async (dispatch) => {
+  const response = await AuthService.refresh();
+  localStorage.setItem("token", response.data.token);
+  localStorage.setItem("refreshToken", response.data.refreshToken);
+};
+
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+    const response = await AuthService.deleteProduct(id);
+    dispatch(getProducts());
+  } catch (e) {
+    console.log(e.response?.data?.message);
   }
 };
+
+export const updateProduct = (title, manufacturer, categoryTitle, id) => async (dispatch) => {
+  try {
+    const response = await AuthService.updateProduct(title, manufacturer, categoryTitle, id);
+    dispatch(getProducts());
+  } catch (e) {
+    console.log(e.repsonse?.data?.message);
+  }
+};
+
+// TODO: навести клеан ап кода
+
+// пофиксить лагаут
+//

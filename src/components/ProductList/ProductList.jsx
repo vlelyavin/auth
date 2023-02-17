@@ -1,34 +1,27 @@
-import { Button } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../..";
 import { getProducts } from "../../actions/actions";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import { ProductListItem } from "../ProductListItem/ProductListItem";
 
 export const ProductList = () => {
   const { store } = useContext(Context);
-  const products = useSelector(state => state.products);
-  const handleClick = () => {};
+  const products = useSelector((state) => state.products);
+  const authenticationStatus = useSelector((state) => state.isAuthenticated);
+  const loadingStatus = useSelector((state) => state.isLoading);
 
   useEffect(() => {
-    store.dispatch(getProducts());
-    console.log(products);
-  }, []);
+    if (!loadingStatus) {
+      console.log("FROM GET PROD" + authenticationStatus);
+      store.dispatch(getProducts());
+    }
+  }, [loadingStatus]);
+
   return (
     <>
       {products.map((product) => (
-        <div key={product.id}>
-          <div>{product.title}</div>
-          <div>{product.manufacturer}</div>
-          <div>{product.category.title}</div>
-          <Button onClick={handleClick} variant="contained">
-            Update
-          </Button>
-          <Button onClick={handleClick} variant="contained">
-            Delete
-          </Button>
-        </div>
+        <ProductListItem product={product} />
       ))}
     </>
   );

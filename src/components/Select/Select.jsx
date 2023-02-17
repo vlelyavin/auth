@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MenuItem, TextField } from "@mui/material";
 import * as LANGUAGES from "../../constants/languages";
 import { useTranslation } from "react-i18next";
